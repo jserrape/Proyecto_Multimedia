@@ -5,17 +5,28 @@
  */
 package proyecto_multimedia;
 
+import com.github.sarxos.webcam.Webcam;
+
 /**
  *
  * @author jcsp0003
  */
-public class ventanaJFrame extends javax.swing.JFrame {
+public class VentanaPrincipalJFrame extends javax.swing.JFrame {
 
     /**
      * Creates new form ventanaJFrame
      */
-    public ventanaJFrame() {
+    public VentanaPrincipalJFrame() {
         initComponents();
+        comprarWebCam();
+    }
+
+    private void comprarWebCam() {
+        Webcam webcam = Webcam.getDefault();
+        if (webcam == null) {
+            VentanaError error = new VentanaError("No se detecta ninguna web-cam");
+            error.mostrar();
+        }
     }
 
     /**
@@ -98,20 +109,21 @@ public class ventanaJFrame extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(ventanaJFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(VentanaPrincipalJFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(ventanaJFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(VentanaPrincipalJFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(ventanaJFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(VentanaPrincipalJFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(ventanaJFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(VentanaPrincipalJFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new ventanaJFrame().setVisible(true);
+               // new VentanaPrincipalJFrame().setVisible(true);
             }
         });
     }

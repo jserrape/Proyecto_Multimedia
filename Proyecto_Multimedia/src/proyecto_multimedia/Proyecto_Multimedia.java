@@ -16,7 +16,7 @@ public class Proyecto_Multimedia {
      */
     public static void main(String[] args) {
         // TODO code application logic here
-        ventanaJFrame ventana=new ventanaJFrame();
+        VentanaPrincipalJFrame ventana=new VentanaPrincipalJFrame();
         ventana.setVisible(true);
     }
     
