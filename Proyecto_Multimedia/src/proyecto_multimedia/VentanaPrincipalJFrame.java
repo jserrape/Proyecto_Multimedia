@@ -19,25 +19,41 @@ import javax.imageio.ImageIO;
  */
 public class VentanaPrincipalJFrame extends javax.swing.JFrame {
 
-    private Webcam cam = Webcam.getDefault();
-    private Dimension ds = new Dimension(760, 422);
-    private Dimension cs = WebcamResolution.VGA.getSize();
-    private WebcamPanel wcPanel = new WebcamPanel(cam, ds, false);
+    private Webcam cam;
+    private Dimension ds;
+    private Dimension cs;
+    private WebcamPanel wcPanel;
+    private Thread t;
 
     public VentanaPrincipalJFrame() {
         initComponents();
-        comprarWebCam();
-        cam.setViewSize(cs);
-        wcPanel.setFitArea(true);
-        jPanel1.setLayout(new FlowLayout());
-        jPanel1.add(wcPanel);
+        comprobarWebCam();
+
     }
 
-    private void comprarWebCam() {
+    private void comprobarWebCam() {
         Webcam webcam = Webcam.getDefault();
         if (webcam == null) {
             VentanaError error = new VentanaError("No se detecta ninguna web-cam");
             error.mostrar();
+        } else {
+            cam = Webcam.getDefault();
+            ds = new Dimension(760, 422);
+            cs = WebcamResolution.VGA.getSize();
+            wcPanel = new WebcamPanel(cam, ds, false);
+            t = new Thread() {
+                @Override
+                public void run() {
+                    wcPanel.start();
+                }
+            };
+            t.setDaemon(true);
+            t.start();
+
+            cam.setViewSize(cs);
+            wcPanel.setFitArea(true);
+            jPanel1.setLayout(new FlowLayout());
+            jPanel1.add(wcPanel);
         }
     }
 
@@ -52,7 +68,6 @@ public class VentanaPrincipalJFrame extends javax.swing.JFrame {
 
         jButton1 = new javax.swing.JButton();
         jPanel1 = new javax.swing.JPanel();
-        jButton2 = new javax.swing.JButton();
         jButton3 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -77,13 +92,6 @@ public class VentanaPrincipalJFrame extends javax.swing.JFrame {
             .addGap(0, 422, Short.MAX_VALUE)
         );
 
-        jButton2.setText("Empezar");
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
-            }
-        });
-
         jButton3.setText("Foto");
         jButton3.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -102,9 +110,7 @@ public class VentanaPrincipalJFrame extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGap(71, 71, 71)
                 .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 163, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 81, Short.MAX_VALUE)
-                .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 163, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(55, 55, 55)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 299, Short.MAX_VALUE)
                 .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 163, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(84, 84, 84))
         );
@@ -116,7 +122,6 @@ public class VentanaPrincipalJFrame extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap())
         );
@@ -128,18 +133,6 @@ public class VentanaPrincipalJFrame extends javax.swing.JFrame {
         // TODO add your handling code here:
         this.dispose();
     }//GEN-LAST:event_jButton1ActionPerformed
-
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        // TODO add your handling code here:
-        Thread t = new Thread() {
-            @Override
-            public void run() {
-                wcPanel.start();
-            }
-        };
-        t.setDaemon(true);
-        t.start();
-    }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
         // TODO add your handling code here:
@@ -189,7 +182,6 @@ public class VentanaPrincipalJFrame extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
     private javax.swing.JPanel jPanel1;
     // End of variables declaration//GEN-END:variables
