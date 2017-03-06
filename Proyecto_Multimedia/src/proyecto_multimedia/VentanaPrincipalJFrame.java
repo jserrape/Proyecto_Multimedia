@@ -24,12 +24,13 @@ public class VentanaPrincipalJFrame extends javax.swing.JFrame {
     private Dimension cs;
     private WebcamPanel wcPanel;
     private Thread t;
-    hiloVideo threadRecord;
+    
+    private hiloVideo hiloDeVideo;
 
     public VentanaPrincipalJFrame() {
         initComponents();
         comprobarWebCam();
-        threadRecord = null;
+        hiloDeVideo = null;
     }
 
     private void comprobarWebCam() {
@@ -169,14 +170,14 @@ public class VentanaPrincipalJFrame extends javax.swing.JFrame {
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
         // TODO add your handling code here:
-        threadRecord = new hiloVideo(cam);
-        Thread th = new Thread(threadRecord);
+        hiloDeVideo = new hiloVideo(cam);
+        Thread th = new Thread(hiloDeVideo);
         th.start();
     }//GEN-LAST:event_jButton4ActionPerformed
 
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
         // TODO add your handling code here:
-        threadRecord.parar();
+        hiloDeVideo.parar();
     }//GEN-LAST:event_jButton5ActionPerformed
 
     /**
