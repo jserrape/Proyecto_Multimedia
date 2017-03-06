@@ -17,6 +17,7 @@ public class Ajustes extends javax.swing.JFrame {
      */
     public Ajustes(VentanaPrincipalJFrame _ventana) {
         initComponents();
+        this.setLocationRelativeTo(null);
         ventana=_ventana;
     }
 

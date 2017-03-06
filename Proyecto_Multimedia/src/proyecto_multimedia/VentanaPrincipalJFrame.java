@@ -30,8 +30,9 @@ public class VentanaPrincipalJFrame extends javax.swing.JFrame {
     
     private hiloVideo hiloDeVideo;
 
-    public VentanaPrincipalJFrame() {
+    public VentanaPrincipalJFrame() {   
         initComponents();
+        this.setLocationRelativeTo(null);
         comprobarWebCam();
         hiloDeVideo = null;
         recording = false;
