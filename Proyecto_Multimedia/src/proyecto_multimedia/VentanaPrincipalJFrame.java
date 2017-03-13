@@ -6,13 +6,16 @@
 package proyecto_multimedia;
 
 import com.github.sarxos.webcam.Webcam;
+import com.github.sarxos.webcam.WebcamImageTransformer;
 import com.github.sarxos.webcam.WebcamPanel;
 import com.github.sarxos.webcam.WebcamResolution;
+import com.github.sarxos.webcam.util.jh.JHGrayFilter;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
-import java.awt.event.ActionEvent;
+import java.awt.image.BufferedImage;
 import java.io.File;
 import javax.imageio.ImageIO;
+import javax.swing.JFrame;
 
 /**
  *
@@ -27,10 +30,10 @@ public class VentanaPrincipalJFrame extends javax.swing.JFrame {
     private Thread t;
     private boolean recording;
     private Ajustes ajustes;
-    
+
     private hiloVideo hiloDeVideo;
 
-    public VentanaPrincipalJFrame() {   
+    public VentanaPrincipalJFrame() {
         initComponents();
         this.setLocationRelativeTo(null);
         comprobarWebCam();
@@ -48,7 +51,23 @@ public class VentanaPrincipalJFrame extends javax.swing.JFrame {
             cam = Webcam.getDefault();
             ds = new Dimension(760, 422);
             cs = WebcamResolution.VGA.getSize();
+            
+            /* Prueba marco */
+
+            JFrame window = new JFrame("Test Transformer");
+
             wcPanel = new WebcamPanel(cam, ds, false);
+            
+            /* Prueba marco */
+            wcPanel.setFPSDisplayed(true);
+            wcPanel.setFillArea(true);
+
+            jPanel1.add(wcPanel);
+            
+            /* Prueba marco */
+            window.pack();
+            window.setVisible(true);
+            window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
             t = new Thread() {
                 @Override
                 public void run() {
