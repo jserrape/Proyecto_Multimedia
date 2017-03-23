@@ -9,6 +9,7 @@ import com.github.sarxos.webcam.Webcam;
 import com.github.sarxos.webcam.WebcamImageTransformer;
 import com.github.sarxos.webcam.WebcamPanel;
 import com.github.sarxos.webcam.WebcamResolution;
+import com.github.sarxos.webcam.WebcamUtils;
 import com.github.sarxos.webcam.util.jh.JHGrayFilter;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
@@ -33,6 +34,8 @@ public class VentanaPrincipalJFrame extends javax.swing.JFrame {
 
     private hiloVideo hiloDeVideo;
 
+    private String formatoImagen;
+
     public VentanaPrincipalJFrame() {
         initComponents();
         this.setLocationRelativeTo(null);
@@ -40,6 +43,7 @@ public class VentanaPrincipalJFrame extends javax.swing.JFrame {
         hiloDeVideo = null;
         recording = false;
         ajustes = new Ajustes(this);
+        formatoImagen = "bmp";
     }
 
     private void comprobarWebCam() {
@@ -51,19 +55,18 @@ public class VentanaPrincipalJFrame extends javax.swing.JFrame {
             cam = Webcam.getDefault();
             ds = new Dimension(760, 422);
             cs = WebcamResolution.VGA.getSize();
-            
-            /* Prueba marco */
 
+            /* Prueba marco */
             JFrame window = new JFrame("Test Transformer");
 
             wcPanel = new WebcamPanel(cam, ds, false);
-            
+
             /* Prueba marco */
             wcPanel.setFPSDisplayed(true);
             wcPanel.setFillArea(true);
 
             jPanel1.add(wcPanel);
-            
+
             /* Prueba marco */
             window.pack();
             window.setVisible(true);
@@ -170,11 +173,12 @@ public class VentanaPrincipalJFrame extends javax.swing.JFrame {
                 .addContainerGap()
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
         );
 
@@ -188,12 +192,8 @@ public class VentanaPrincipalJFrame extends javax.swing.JFrame {
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
         // TODO add your handling code here:
-        try {
-            File file = new File(String.format("captura-%d.jpg", System.currentTimeMillis()));
-            ImageIO.write(cam.getImage(), "JPG", file);
-        } catch (Exception e) {
-
-        }
+            String nombre=String.format("captura-%d.jpg", System.currentTimeMillis());
+            WebcamUtils.capture(cam, nombre, formatoImagen);
     }//GEN-LAST:event_jButton3ActionPerformed
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
@@ -214,9 +214,12 @@ public class VentanaPrincipalJFrame extends javax.swing.JFrame {
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         // TODO add your handling code here:
         ajustes.setVisible(true);
-        this.setVisible(false);
     }//GEN-LAST:event_jButton2ActionPerformed
 
+    public void setFormatoImagen(String form){
+        this.formatoImagen=form;
+    }
+    
     /**
      * @param args the command line arguments
      */
