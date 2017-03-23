@@ -57,20 +57,20 @@ public class VentanaPrincipalJFrame extends javax.swing.JFrame {
             cs = WebcamResolution.VGA.getSize();
 
             /* Prueba marco */
-            JFrame window = new JFrame("Test Transformer");
+            //JFrame window = new JFrame("Test Transformer");
 
             wcPanel = new WebcamPanel(cam, ds, false);
 
             /* Prueba marco */
-            wcPanel.setFPSDisplayed(true);
             wcPanel.setFillArea(true);
 
             jPanel1.add(wcPanel);
 
             /* Prueba marco */
-            window.pack();
-            window.setVisible(true);
-            window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+            //window.pack();
+            //window.setVisible(true);
+            //window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+            
             t = new Thread() {
                 @Override
                 public void run() {
@@ -218,6 +218,10 @@ public class VentanaPrincipalJFrame extends javax.swing.JFrame {
 
     public void setFormatoImagen(String form){
         this.formatoImagen=form;
+    }
+    
+    public void mostrarFPS(boolean acction){
+        wcPanel.setFPSDisplayed(acction);
     }
     
     /**

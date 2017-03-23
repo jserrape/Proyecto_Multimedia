@@ -33,7 +33,7 @@ public class Ajustes extends javax.swing.JFrame {
         botonVolver = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
         comboBoxFormato = new javax.swing.JComboBox<>();
-        jCheckBox1 = new javax.swing.JCheckBox();
+        checkBoxFPS = new javax.swing.JCheckBox();
         botonGuardar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -49,10 +49,10 @@ public class Ajustes extends javax.swing.JFrame {
 
         comboBoxFormato.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "bmp", "gif", "jpg", "png", "wbmp" }));
 
-        jCheckBox1.setText("Mostrar FPS");
-        jCheckBox1.addActionListener(new java.awt.event.ActionListener() {
+        checkBoxFPS.setText("Mostrar FPS");
+        checkBoxFPS.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jCheckBox1ActionPerformed(evt);
+                checkBoxFPSActionPerformed(evt);
             }
         });
 
@@ -72,7 +72,7 @@ public class Ajustes extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jCheckBox1)
+                            .addComponent(checkBoxFPS)
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(jLabel1)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -92,7 +92,7 @@ public class Ajustes extends javax.swing.JFrame {
                     .addComponent(jLabel1)
                     .addComponent(comboBoxFormato, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jCheckBox1)
+                .addComponent(checkBoxFPS)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 159, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(botonVolver, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -108,13 +108,14 @@ public class Ajustes extends javax.swing.JFrame {
         this.setVisible(false);
     }//GEN-LAST:event_botonVolverActionPerformed
 
-    private void jCheckBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCheckBox1ActionPerformed
+    private void checkBoxFPSActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_checkBoxFPSActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jCheckBox1ActionPerformed
+    }//GEN-LAST:event_checkBoxFPSActionPerformed
 
     private void botonGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonGuardarActionPerformed
         // TODO add your handling code here:
         ventana.setFormatoImagen(comboBoxFormato.getItemAt(comboBoxFormato.getSelectedIndex()));
+        ventana.mostrarFPS(checkBoxFPS.isSelected());
         this.setVisible(false);
     }//GEN-LAST:event_botonGuardarActionPerformed
 
@@ -157,8 +158,8 @@ public class Ajustes extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton botonGuardar;
     private javax.swing.JButton botonVolver;
+    private javax.swing.JCheckBox checkBoxFPS;
     private javax.swing.JComboBox<String> comboBoxFormato;
-    private javax.swing.JCheckBox jCheckBox1;
     private javax.swing.JLabel jLabel1;
     // End of variables declaration//GEN-END:variables
 }
