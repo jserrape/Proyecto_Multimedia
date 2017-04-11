@@ -58,7 +58,6 @@ public class VentanaPrincipalJFrame extends javax.swing.JFrame {
 
             /* Prueba marco */
             //JFrame window = new JFrame("Test Transformer");
-
             wcPanel = new WebcamPanel(cam, ds, false);
 
             /* Prueba marco */
@@ -70,7 +69,6 @@ public class VentanaPrincipalJFrame extends javax.swing.JFrame {
             //window.pack();
             //window.setVisible(true);
             //window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-            
             t = new Thread() {
                 @Override
                 public void run() {
@@ -84,7 +82,14 @@ public class VentanaPrincipalJFrame extends javax.swing.JFrame {
             wcPanel.setFitArea(true);
             jPanel1.setLayout(new FlowLayout());
             jPanel1.add(wcPanel);
+
         }
+    }
+    
+    private void refrescarImagen() {
+    
+        // Esto no se si está hecho
+        insertarMarco();
     }
 
     /**
@@ -192,8 +197,8 @@ public class VentanaPrincipalJFrame extends javax.swing.JFrame {
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
         // TODO add your handling code here:
-            String nombre=String.format("captura-%d.jpg", System.currentTimeMillis());
-            WebcamUtils.capture(cam, nombre, formatoImagen);
+        String nombre = String.format("captura-%d.jpg", System.currentTimeMillis());
+        WebcamUtils.capture(cam, nombre, formatoImagen);
     }//GEN-LAST:event_jButton3ActionPerformed
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
@@ -216,14 +221,25 @@ public class VentanaPrincipalJFrame extends javax.swing.JFrame {
         ajustes.setVisible(true);
     }//GEN-LAST:event_jButton2ActionPerformed
 
-    public void setFormatoImagen(String form){
-        this.formatoImagen=form;
+    public void setFormatoImagen(String form) {
+        this.formatoImagen = form;
     }
-    
-    public void mostrarFPS(boolean acction){
+
+    public void mostrarFPS(boolean acction) {
         wcPanel.setFPSDisplayed(acction);
     }
     
+    private void insertarMarco(){
+            // Usar ésto para cargar de una lista de marcos (mas adelante) (String)jList2.getModel().getElementAt(jList2.getSelectedIndex())) + ".png"
+            
+            // Se aplica marco si la cam está activa ( y si hay alguno seleccionado (mas adelante) y se desactiva en caso contrario
+            if (cam != null) {
+                ((TransformarImg)cam.getImageTransformer()).setTemplate("Pussies.png");
+            } else {
+                ((TransformarImg)cam.getImageTransformer()).setTemplate(null);
+            }
+    }
+
     /**
      * @param args the command line arguments
      */
