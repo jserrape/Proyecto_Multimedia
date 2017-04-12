@@ -16,6 +16,7 @@ import java.awt.FlowLayout;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import javax.imageio.ImageIO;
+import javax.swing.ComboBoxModel;
 import javax.swing.JFrame;
 
 /**
@@ -72,7 +73,7 @@ public class VentanaPrincipalJFrame extends javax.swing.JFrame {
             t = new Thread() {
                 @Override
                 public void run() {
-                    wcPanel.start();
+                //    wcPanel.start();
                 }
             };
             t.setDaemon(true);
@@ -82,13 +83,33 @@ public class VentanaPrincipalJFrame extends javax.swing.JFrame {
             wcPanel.setFitArea(true);
             jPanel1.setLayout(new FlowLayout());
             jPanel1.add(wcPanel);
-
+            refrescarImagen();    
         }
     }
     
     private void refrescarImagen() {
     
         // Esto no se si está hecho
+         if (jPanel1 instanceof WebcamPanel) ((WebcamPanel)jPanel1).stop();
+        remove(jPanel1);
+        //dalt = updateResolution(activeWebcam,jComboBox2);
+        //ComboBoxModel cbm = jComboBox2.getModel();
+        
+        cam.setImageTransformer(new TransformarImg()); // Transformaciones.
+        cam.open(); // Abre la webcam al mundo.
+
+        jPanel1 = new WebcamPanel(cam);
+//        ((WebcamPanel)jPanel1).setMirrored(jCheckBox1.isSelected());
+//        ((WebcamPanel)jPanel1).setFPSDisplayed(jCheckBox2.isSelected());
+//        ((WebcamPanel)jPanel1).setDisplayDebugInfo(jCheckBox2.isSelected());
+//        jList1.setSelectedIndex(0);
+//        jList2.setSelectedIndex(0);
+//        constructLayout();
+//        getListWebcam(jComboBox1, activeWebcam);
+//        jComboBox2.setModel(cbm);
+//        updateTemplates(jList2,directoryListing("templates",".png"));
+        revalidate();
+        repaint();
         insertarMarco();
     }
 
