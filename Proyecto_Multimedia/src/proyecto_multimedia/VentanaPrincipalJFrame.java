@@ -40,20 +40,26 @@ public class VentanaPrincipalJFrame extends javax.swing.JFrame {
     public VentanaPrincipalJFrame() {
         initComponents();
         this.setLocationRelativeTo(null);
-        comprobarWebCam();
+
+        cam = null;
         hiloDeVideo = null;
         recording = false;
         ajustes = new Ajustes(this);
         formatoImagen = "bmp";
+
+        comprobarWebCam();
+        refrescarImagen();
     }
 
     private void comprobarWebCam() {
+
         Webcam webcam = Webcam.getDefault();
+
         if (webcam == null) {
             VentanaError error = new VentanaError("No se detecta ninguna web-cam");
             error.mostrar();
         } else {
-            cam = Webcam.getDefault();
+            cam = webcam;
             ds = new Dimension(760, 422);
             cs = WebcamResolution.VGA.getSize();
 
@@ -65,7 +71,7 @@ public class VentanaPrincipalJFrame extends javax.swing.JFrame {
             wcPanel.setFillArea(true);
 
             jPanel1.add(wcPanel);
-
+            jPanel1 = new WebcamPanel(cam);
             /* Prueba marco */
             //window.pack();
             //window.setVisible(true);
@@ -73,28 +79,38 @@ public class VentanaPrincipalJFrame extends javax.swing.JFrame {
             t = new Thread() {
                 @Override
                 public void run() {
-                //    wcPanel.start();
+                    //    wcPanel.start();
                 }
             };
             t.setDaemon(true);
             t.start();
 
-            cam.setViewSize(cs);
+            if (cs != null) {
+                boolean openpls = cam.isOpen();
+                
+                if (openpls) {
+                    System.out.println("paro");
+                    ((WebcamPanel) jPanel1).stop();
+                }
+                cam.setViewSize(cs);
+                if (openpls) {
+                    System.out.println("arranco");
+                    ((WebcamPanel) jPanel1).start();
+                }
+            }
             wcPanel.setFitArea(true);
             jPanel1.setLayout(new FlowLayout());
             jPanel1.add(wcPanel);
-            refrescarImagen();    
         }
     }
-    
+
     private void refrescarImagen() {
-    
+
         // Esto no se si está hecho
-         if (jPanel1 instanceof WebcamPanel) ((WebcamPanel)jPanel1).stop();
-        remove(jPanel1);
+//         if (jPanel1 instanceof WebcamPanel) ((WebcamPanel)jPanel1).stop();
+//         remove(jPanel1);
         //dalt = updateResolution(activeWebcam,jComboBox2);
         //ComboBoxModel cbm = jComboBox2.getModel();
-        
         cam.setImageTransformer(new TransformarImg()); // Transformaciones.
         cam.open(); // Abre la webcam al mundo.
 
@@ -137,13 +153,13 @@ public class VentanaPrincipalJFrame extends javax.swing.JFrame {
             }
         });
 
-        jPanel1.setBackground(new java.awt.Color(204, 204, 204));
+        jPanel1.setBackground(new java.awt.Color(102, 102, 102));
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
+            .addGap(0, 961, Short.MAX_VALUE)
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -180,12 +196,12 @@ public class VentanaPrincipalJFrame extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 961, Short.MAX_VALUE)
                 .addContainerGap())
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addGap(28, 28, 28)
                 .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 163, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 87, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 163, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(85, 85, 85)
                 .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 163, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -197,7 +213,7 @@ public class VentanaPrincipalJFrame extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -249,16 +265,16 @@ public class VentanaPrincipalJFrame extends javax.swing.JFrame {
     public void mostrarFPS(boolean acction) {
         wcPanel.setFPSDisplayed(acction);
     }
-    
-    private void insertarMarco(){
-            // Usar ésto para cargar de una lista de marcos (mas adelante) (String)jList2.getModel().getElementAt(jList2.getSelectedIndex())) + ".png"
-            
-            // Se aplica marco si la cam está activa ( y si hay alguno seleccionado (mas adelante) y se desactiva en caso contrario
-            if (cam != null) {
-                ((TransformarImg)cam.getImageTransformer()).setTemplate("Pussies.png");
-            } else {
-                ((TransformarImg)cam.getImageTransformer()).setTemplate(null);
-            }
+
+    private void insertarMarco() {
+        // Usar ésto para cargar de una lista de marcos (mas adelante) (String)jList2.getModel().getElementAt(jList2.getSelectedIndex())) + ".png"
+
+        // Se aplica marco si la cam está activa ( y si hay alguno seleccionado (mas adelante) y se desactiva en caso contrario
+        if (cam != null) {
+            ((TransformarImg) cam.getImageTransformer()).setTemplate("Pussies.png");
+        } else {
+            ((TransformarImg) cam.getImageTransformer()).setTemplate(null);
+        }
     }
 
     /**
