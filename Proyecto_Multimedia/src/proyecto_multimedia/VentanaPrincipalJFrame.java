@@ -6,18 +6,11 @@
 package proyecto_multimedia;
 
 import com.github.sarxos.webcam.Webcam;
-import com.github.sarxos.webcam.WebcamImageTransformer;
 import com.github.sarxos.webcam.WebcamPanel;
 import com.github.sarxos.webcam.WebcamResolution;
 import com.github.sarxos.webcam.WebcamUtils;
-import com.github.sarxos.webcam.util.jh.JHGrayFilter;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
-import java.awt.image.BufferedImage;
-import java.io.File;
-import javax.imageio.ImageIO;
-import javax.swing.ComboBoxModel;
-import javax.swing.JFrame;
 
 /**
  *
@@ -63,23 +56,16 @@ public class VentanaPrincipalJFrame extends javax.swing.JFrame {
             ds = new Dimension(760, 422);
             cs = WebcamResolution.VGA.getSize();
 
-            /* Prueba marco */
-            //JFrame window = new JFrame("Test Transformer");
             wcPanel = new WebcamPanel(cam, ds, false);
 
-            /* Prueba marco */
             wcPanel.setFillArea(true);
 
             jPanel1.add(wcPanel);
-            jPanel1 = new WebcamPanel(cam);
-            /* Prueba marco */
-            //window.pack();
-            //window.setVisible(true);
-            //window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+
             t = new Thread() {
                 @Override
                 public void run() {
-                    //    wcPanel.start();
+                    wcPanel.start();
                 }
             };
             t.setDaemon(true);
@@ -105,25 +91,10 @@ public class VentanaPrincipalJFrame extends javax.swing.JFrame {
     }
 
     private void refrescarImagen() {
-
-        // Esto no se si está hecho
-//         if (jPanel1 instanceof WebcamPanel) ((WebcamPanel)jPanel1).stop();
-//         remove(jPanel1);
-        //dalt = updateResolution(activeWebcam,jComboBox2);
-        //ComboBoxModel cbm = jComboBox2.getModel();
         cam.setImageTransformer(new TransformarImg()); // Transformaciones.
         cam.open(); // Abre la webcam al mundo.
 
         jPanel1 = new WebcamPanel(cam);
-//        ((WebcamPanel)jPanel1).setMirrored(jCheckBox1.isSelected());
-//        ((WebcamPanel)jPanel1).setFPSDisplayed(jCheckBox2.isSelected());
-//        ((WebcamPanel)jPanel1).setDisplayDebugInfo(jCheckBox2.isSelected());
-//        jList1.setSelectedIndex(0);
-//        jList2.setSelectedIndex(0);
-//        constructLayout();
-//        getListWebcam(jComboBox1, activeWebcam);
-//        jComboBox2.setModel(cbm);
-//        updateTemplates(jList2,directoryListing("templates",".png"));
         revalidate();
         repaint();
         insertarMarco();
@@ -153,7 +124,7 @@ public class VentanaPrincipalJFrame extends javax.swing.JFrame {
             }
         });
 
-        jPanel1.setBackground(new java.awt.Color(102, 102, 102));
+        jPanel1.setBackground(new java.awt.Color(0, 0, 0));
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -196,7 +167,7 @@ public class VentanaPrincipalJFrame extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 961, Short.MAX_VALUE)
+                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap())
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addGap(28, 28, 28)
