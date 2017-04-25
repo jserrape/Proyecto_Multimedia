@@ -5,6 +5,8 @@
  */
 package proyecto_multimedia;
 
+import static proyecto_multimedia.CapturaWC.directoryListing;
+
 /**
  *
  * @author Markax
@@ -19,6 +21,8 @@ public class Ajustes extends javax.swing.JFrame {
         initComponents();
         this.setLocationRelativeTo(null);
         ventana=_ventana;
+        //updateTemplates(listaMarcos,directoryListing("templates",".png"));
+        listaMarcos.addItem("Ninguno");
     }
 
     /**
@@ -37,7 +41,7 @@ public class Ajustes extends javax.swing.JFrame {
         botonGuardar = new javax.swing.JButton();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
-        jComboBox1 = new javax.swing.JComboBox<>();
+        listaMarcos = new javax.swing.JComboBox<>();
         jSeparator1 = new javax.swing.JSeparator();
         jComboBox2 = new javax.swing.JComboBox<>();
         CheckBoxStatistics = new javax.swing.JCheckBox();
@@ -73,7 +77,12 @@ public class Ajustes extends javax.swing.JFrame {
 
         jLabel3.setText("Filtro");
 
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        listaMarcos.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Ninguno", "Anime", "Diablo3", "Espirales", "Hearthstone", "Love", "Minecraft", "Nyancat", "Piolin" }));
+        listaMarcos.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                listaMarcosActionPerformed(evt);
+            }
+        });
 
         jComboBox2.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
@@ -102,7 +111,7 @@ public class Ajustes extends javax.swing.JFrame {
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(jLabel2)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addComponent(listaMarcos, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -114,7 +123,7 @@ public class Ajustes extends javax.swing.JFrame {
                                         .addComponent(jLabel3)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                         .addComponent(jComboBox2, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addGap(0, 13, Short.MAX_VALUE)))
+                                        .addGap(0, 0, Short.MAX_VALUE)))
                                 .addGap(69, 69, 69))
                             .addGroup(layout.createSequentialGroup()
                                 .addGap(16, 16, 16)
@@ -140,7 +149,7 @@ public class Ajustes extends javax.swing.JFrame {
                 .addGap(19, 19, 19)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
-                    .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(listaMarcos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel3)
                     .addComponent(jComboBox2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 96, Short.MAX_VALUE)
@@ -167,12 +176,17 @@ public class Ajustes extends javax.swing.JFrame {
         ventana.setFormatoImagen(comboBoxFormato.getItemAt(comboBoxFormato.getSelectedIndex()));
         ventana.mostrarFPS(checkBoxFPS.isSelected());
         ventana.mostrarEstadisticas(CheckBoxStatistics.isSelected());
+        ventana.insertarMarco((listaMarcos.getItemAt(listaMarcos.getSelectedIndex())));
         this.setVisible(false);
     }//GEN-LAST:event_botonGuardarActionPerformed
 
     private void CheckBoxStatisticsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CheckBoxStatisticsActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_CheckBoxStatisticsActionPerformed
+
+    private void listaMarcosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_listaMarcosActionPerformed
+        // TODO add your handling code here:       
+    }//GEN-LAST:event_listaMarcosActionPerformed
 
     /**
      * @param args the command line arguments
@@ -216,11 +230,11 @@ public class Ajustes extends javax.swing.JFrame {
     private javax.swing.JButton botonVolver;
     private javax.swing.JCheckBox checkBoxFPS;
     private javax.swing.JComboBox<String> comboBoxFormato;
-    private javax.swing.JComboBox<String> jComboBox1;
     private javax.swing.JComboBox<String> jComboBox2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JSeparator jSeparator1;
+    private javax.swing.JComboBox<String> listaMarcos;
     // End of variables declaration//GEN-END:variables
 }

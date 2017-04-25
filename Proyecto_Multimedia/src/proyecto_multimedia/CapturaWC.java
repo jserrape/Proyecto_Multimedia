@@ -212,33 +212,28 @@ public class CapturaWC {
 //        return Paths.get(Paths.get(".").toAbsolutePath().normalize().toString(),parent,filename).toString();
 //    }
     
-//    /**
-//     * <b>A partir de la ruta relativa de un directorio, escanea el nombre de los ficheros existentes y busca ficheros con extensión dada.</b>
-//     * @param relativeDir Directorio relativo a escanear.
-//     * @param ext Extensión de los ficheros buscados.
-//     * @return Un vector con el nombre de los ficheros existentes con extensión dada en ese directorio.
-//     */
-//    public static List<String> directoryListing(String relativeDir, final String ext) {
-//        FilenameFilter extFilter = new FilenameFilter() {
-//            public boolean accept(File dir, String name) {
-//                if (name.endsWith(ext)) {
-//                        return true;
-//                } else {
-//                        return false;
-//                }
-//            }
-//        };
-//        
-//        File dir = new File(relativeDir);
-//        File[] files = dir.listFiles(extFilter);
-//        
-//        List<String> fl = new ArrayList<>();
-//        for (int i=files.length-1; i>=0; --i) {
-//            if (!files[i].isDirectory()) fl.add((files[i].getName()).substring(0, files[i].getName().lastIndexOf('.')));
-//        }
-//        
-//        return fl;
-//    }
+
+    public static List<String> directoryListing(String relativeDir, final String ext) {
+        FilenameFilter extFilter = new FilenameFilter() {
+            public boolean accept(File dir, String name) {
+                if (name.endsWith(ext)) {
+                        return true;
+                } else {
+                        return false;
+                }
+            }
+        };
+        
+        File dir = new File(relativeDir);
+        File[] files = dir.listFiles(extFilter);
+        
+        List<String> fl = new ArrayList<>();
+        for (int i=files.length-1; i>=0; --i) {
+            if (!files[i].isDirectory()) fl.add((files[i].getName()).substring(0, files[i].getName().lastIndexOf('.')));
+        }
+        
+        return fl;
+    }
     
     /**
      * <b>Actualiza los marcos disponibles que se muestran en la lista de marcos.</b>
@@ -257,23 +252,5 @@ public class CapturaWC {
             public Object getElementAt(int i) { return strings[i]; }
         });
     }
-    
-    
-//    /**
-//     * <b>Dado un fichero, reproduce el sonido dado si es posible.<b>
-//     * @param file Nombre del sonido a ejecutar (debe estar en la carpeta resources/sounds).
-//     */
-//    public static synchronized void playSound(String file){    
-//        Clip clip = null;
-//        
-//        if(clip != null) clip.stop();
-//        try {
-//            clip = AudioSystem.getClip();
-//            clip.open(AudioSystem.getAudioInputStream(new File("./resources/sounds/" + file)));
-//            clip.start();
-//        } catch (LineUnavailableException | IOException | UnsupportedAudioFileException ex) {
-//            Logger.getLogger(CapturaWC.class.getName()).log(Level.SEVERE, null, ex);
-//        }
-//    }
 }
 
