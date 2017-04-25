@@ -5,8 +5,6 @@
  */
 package proyecto_multimedia;
 
-import static proyecto_multimedia.CapturaWC.directoryListing;
-
 /**
  *
  * @author Markax

@@ -239,11 +239,8 @@ public class VentanaPrincipalJFrame extends javax.swing.JFrame {
     }
 
     public void insertarMarco(String marco) {
-        // Usar ésto para cargar de una lista de marcos (mas adelante) (String)jList2.getModel().getElementAt(jList2.getSelectedIndex())) + ".png"
-
         // Se aplica marco si la cam está activa ( y si hay alguno seleccionado (mas adelante) y se desactiva en caso contrario
         if (cam != null && !"Ninguno".equals(marco)) {
-            System.out.println(marco);
             ((TransformarImg) cam.getImageTransformer()).setTemplate(marco + ".png");
         } else {
             ((TransformarImg) cam.getImageTransformer()).setTemplate(null);

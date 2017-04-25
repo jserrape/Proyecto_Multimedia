@@ -91,37 +91,7 @@ public class CapturaWC {
         activeWebcam.setViewSize(ds[ds.length-1]);
         return ds;
     }
-    
-//    /**
-//     * <b>Dada una imagen y un ángulo de rotación en grados, gira la imagen respecto al ángulo.</b>
-//     * @param img Imagen de entrada.
-//     * @param rotation Ángulo de rotación.
-//     * @return Imagen de salida con la rotación aplicada.
-//     */
-//    public static BufferedImage rotateBI(BufferedImage img, int rotation) {
-//        int w = img.getWidth();  
-//        int h = img.getHeight();  
-//        BufferedImage newImage = new BufferedImage(w, h, BufferedImage.TYPE_INT_RGB);
-//        Graphics2D g2 = newImage.createGraphics();
-//        g2.rotate(Math.toRadians(rotation), w/2, h/2);  
-//        g2.drawImage(img,null,0,0);
-//        return newImage;  
-//    }
-    
-//    /**
-//     * <b>Dada una imagen y un factor de escala, aumenta o disminuye la imagen (ocupando las mismas dimensiones).</b>
-//     * @param img Imagen de entrada.
-//     * @param ss Factor de escala.
-//     * @return Imagen de salida con la escala aplicada.
-//     */
-//    public static BufferedImage zoomBI(BufferedImage img, float ss) {
-//        BufferedImage newImage = new BufferedImage(img.getWidth(), img.getHeight(), BufferedImage.TYPE_INT_RGB);
-//        Graphics2D g2 = newImage.createGraphics();
-//        g2.scale(ss,ss);  
-//        g2.drawImage(img,null,0,0);
-//        return newImage;  
-//    }
-    
+   
     /**
      * <b>Dada una imagen y un factor de escala, aumenta o disminuye la imagen (ocupando las mismas dimensiones).</b>
      * @param img Imagen de entrada.
@@ -187,70 +157,6 @@ public class CapturaWC {
         } else {
             return image;
         }
-    }
-    
-//    /**
-//     * <b>Lee una imagen desde fichero en el directorio resources y hace una conversion en memoria para manejarla.</b>
-//     * @param image Ruta completa donde se encuentra la imagen.
-//     * @return Imagen de salida en memoria y como tipo de dato usable en filtros.
-//     */
-//    public static BufferedImage getImage(String image) {
-//        try {
-//            return ImageIO.read(new FileInputStream(image));
-//        } catch (IOException e) {
-//            throw new RuntimeException(e);
-//        }
-//    }
-    
-//    /**
-//     * <b>Genera una ruta absoluta para llegar a un fichero empezando desde el directorio actual, y posteriormente especificando un directorio padre y el nombre de fichero.</b>
-//     * @param parent Nombre del directorio.
-//     * @param filename Nombre del fichero.
-//     * @return Ruta absoluta que empieza desde el directorio actual y recorre el directorio padre hasta llegar al nombre del fichero.
-//     */
-//    public static String generateRoute(String parent, String filename) {
-//        return Paths.get(Paths.get(".").toAbsolutePath().normalize().toString(),parent,filename).toString();
-//    }
-    
-
-    public static List<String> directoryListing(String relativeDir, final String ext) {
-        FilenameFilter extFilter = new FilenameFilter() {
-            public boolean accept(File dir, String name) {
-                if (name.endsWith(ext)) {
-                        return true;
-                } else {
-                        return false;
-                }
-            }
-        };
-        
-        File dir = new File(relativeDir);
-        File[] files = dir.listFiles(extFilter);
-        
-        List<String> fl = new ArrayList<>();
-        for (int i=files.length-1; i>=0; --i) {
-            if (!files[i].isDirectory()) fl.add((files[i].getName()).substring(0, files[i].getName().lastIndexOf('.')));
-        }
-        
-        return fl;
-    }
-    
-    /**
-     * <b>Actualiza los marcos disponibles que se muestran en la lista de marcos.</b>
-     * @param jl Lista visual de Java donde se guardarán los marcos disponibles.
-     * @param l Lista con los nombres de fichero de los marcos disponibles.
-     */
-    public static void updateTemplates(JList jl, List<String> l) {
-        final String[] strings = new String[l.size()+1];
-        strings[0] = "- Deshabilitar -";
-        int c = 1;
-        for (String s : l) {
-            strings[c++] = s;
-        }
-        jl.setModel(new javax.swing.AbstractListModel() {
-            public int getSize() { return strings.length; }
-            public Object getElementAt(int i) { return strings[i]; }
-        });
-    }
+    }    
 }
 
