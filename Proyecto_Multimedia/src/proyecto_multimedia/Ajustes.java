@@ -166,6 +166,7 @@ public class Ajustes extends javax.swing.JFrame {
         // TODO add your handling code here:
         ventana.setFormatoImagen(comboBoxFormato.getItemAt(comboBoxFormato.getSelectedIndex()));
         ventana.mostrarFPS(checkBoxFPS.isSelected());
+        ventana.mostrarEstadisticas(CheckBoxStatistics.isSelected());
         this.setVisible(false);
     }//GEN-LAST:event_botonGuardarActionPerformed
 

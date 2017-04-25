@@ -12,10 +12,7 @@ import com.github.sarxos.webcam.WebcamUtils;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 
-/**
- *
- * @author jcsp0003
- */
+
 public class VentanaPrincipalJFrame extends javax.swing.JFrame {
 
     private Webcam cam;
@@ -233,8 +230,12 @@ public class VentanaPrincipalJFrame extends javax.swing.JFrame {
         this.formatoImagen = form;
     }
 
-    public void mostrarFPS(boolean acction) {
-        wcPanel.setFPSDisplayed(acction);
+    public void mostrarFPS(boolean action) {
+        wcPanel.setFPSDisplayed(action);
+    }
+    
+    public void mostrarEstadisticas(boolean action) {
+        wcPanel.setDisplayDebugInfo(action);
     }
 
     private void insertarMarco() {

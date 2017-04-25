@@ -53,7 +53,7 @@
                                       <Component id="jLabel3" min="-2" max="-2" attributes="0"/>
                                       <EmptySpace max="-2" attributes="0"/>
                                       <Component id="jComboBox2" min="-2" pref="125" max="-2" attributes="0"/>
-                                      <EmptySpace min="0" pref="13" max="32767" attributes="0"/>
+                                      <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                                   </Group>
                               </Group>
                               <EmptySpace min="-2" pref="69" max="-2" attributes="0"/>
