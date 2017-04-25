@@ -242,7 +242,7 @@ public class VentanaPrincipalJFrame extends javax.swing.JFrame {
 
         // Se aplica marco si la cam está activa ( y si hay alguno seleccionado (mas adelante) y se desactiva en caso contrario
         if (cam != null) {
-            ((TransformarImg) cam.getImageTransformer()).setTemplate("Pussies.png");
+            ((TransformarImg) cam.getImageTransformer()).setTemplate("nyancat.png");
         } else {
             ((TransformarImg) cam.getImageTransformer()).setTemplate(null);
         }
