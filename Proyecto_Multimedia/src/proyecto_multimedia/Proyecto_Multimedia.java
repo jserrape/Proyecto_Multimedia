@@ -5,10 +5,7 @@
  */
 package proyecto_multimedia;
 
-/**
- *
- * @author jcsp0003
- */
+
 public class Proyecto_Multimedia {
 
     /**

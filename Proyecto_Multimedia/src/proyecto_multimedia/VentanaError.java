@@ -8,10 +8,7 @@ package proyecto_multimedia;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
-/**
- *
- * @author jcsp0003
- */
+
 public class VentanaError {
 
     private final String mensaje;
