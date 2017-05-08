@@ -48,6 +48,7 @@ public class VentanaPrincipalJFrame extends javax.swing.JFrame {
         if (webcam == null) {
             VentanaError error = new VentanaError("No se detecta ninguna web-cam");
             error.mostrar();
+            System.exit(0);
         } else {
             cam = webcam;
             ds = new Dimension(760, 422);
