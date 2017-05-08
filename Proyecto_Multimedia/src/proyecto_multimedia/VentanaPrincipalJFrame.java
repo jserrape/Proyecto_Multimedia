@@ -14,7 +14,8 @@ import java.awt.FlowLayout;
 
 
 public class VentanaPrincipalJFrame extends javax.swing.JFrame {
-
+    
+    // Variables necesarias para la configuración de la webcam
     private Webcam cam;
     private Dimension ds;
     private Dimension cs;
@@ -23,14 +24,16 @@ public class VentanaPrincipalJFrame extends javax.swing.JFrame {
     private boolean recording;
     private Ajustes ajustes;
 
+    //Variable para crear videos
     private hiloVideo hiloDeVideo;
 
+    //Variable para cambiar el formato en el que se guardará la captura (foto)
     private String formatoImagen;
 
     public VentanaPrincipalJFrame() {
         initComponents();
         this.setLocationRelativeTo(null);
-
+        //Inicialización de variables
         cam = null;
         hiloDeVideo = null;
         recording = false;
@@ -41,6 +44,7 @@ public class VentanaPrincipalJFrame extends javax.swing.JFrame {
         refrescarImagen();
     }
 
+    //Comprueba si hay al menos una webcam disponible. Lanza ventana de error y finaliza ejecución en otro caso
     private void comprobarWebCam() {
 
         Webcam webcam = Webcam.getDefault();
@@ -70,15 +74,12 @@ public class VentanaPrincipalJFrame extends javax.swing.JFrame {
             t.start();
 
             if (cs != null) {
-                boolean openpls = cam.isOpen();
-                
+                boolean openpls = cam.isOpen();                
                 if (openpls) {
-                    System.out.println("paro");
                     ((WebcamPanel) jPanel1).stop();
                 }
                 cam.setViewSize(cs);
                 if (openpls) {
-                    System.out.println("arranco");
                     ((WebcamPanel) jPanel1).start();
                 }
             }
@@ -88,14 +89,14 @@ public class VentanaPrincipalJFrame extends javax.swing.JFrame {
         }
     }
 
+    //Actualiza la ventana de visualización de la webcam
     private void refrescarImagen() {
         cam.setImageTransformer(new TransformarImg()); // Transformaciones.
-        cam.open(); // Abre la webcam al mundo.
+        cam.open(); // Abre la webcam.
 
         jPanel1 = new WebcamPanel(cam);
         revalidate();
         repaint();
-    //    insertarMarco();
     }
 
     /**
@@ -228,18 +229,34 @@ public class VentanaPrincipalJFrame extends javax.swing.JFrame {
         ajustes.setVisible(true);
     }//GEN-LAST:event_jButton2ActionPerformed
 
+    /**
+     * Cambia el formato en el que se guardará la foto
+     * @param form nombre del formato 
+     */
     public void setFormatoImagen(String form) {
         this.formatoImagen = form;
     }
 
+    /**
+     * Muestra/oculta los FPS de captura
+     * @param action booleano que activa/desactiva los fps
+     */
     public void mostrarFPS(boolean action) {
         wcPanel.setFPSDisplayed(action);
     }
     
+    /**
+     * Muestra/oculta datos adicionales sobre la captura
+     * @param action booleano que activa/desactiva los fps
+     */
     public void mostrarEstadisticas(boolean action) {
         wcPanel.setDisplayDebugInfo(action);
     }
 
+    /**
+     * Inserta un marco en la ventana de visualización
+     * @param marco nombre del marco que se desea insertar
+     */
     public void insertarMarco(String marco) {
         // Se aplica marco si la cam está activa ( y si hay alguno seleccionado (mas adelante) y se desactiva en caso contrario
         if (cam != null && !"Ninguno".equals(marco)) {

@@ -17,26 +17,38 @@ import com.xuggle.xuggler.video.ConverterFactory;
 import com.xuggle.xuggler.video.IConverter;
 
 public class hiloVideo implements Runnable {
-
+    //Variables del hilo de video
     private final Webcam cam;
     private boolean stop;
 
+    /**
+     * Constructor de hiloVideo
+     * @param c webcam activa
+     */
     public hiloVideo(Webcam c) {
         this.cam = c;
     }
 
+    /**
+     * Detiene la grabación de video
+     */
     public void parar() {
         this.stop = true;
     }
 
     @Override
     public void run() {
-        File file = new File(String.format("video-%d.mp4", System.currentTimeMillis()));
-        IMediaWriter writer = ToolFactory.makeWriter(file.getAbsolutePath());
-        Dimension size = cam.getViewSize();
+        File file;
+        IMediaWriter writer;
+        Dimension size;
+        long start;
+        
+        file = new File(String.format("video-%d.mp4", System.currentTimeMillis()));       
+        writer = ToolFactory.makeWriter(file.getAbsolutePath());
+        size = cam.getViewSize();
         writer.addVideoStream(0, 0, ICodec.ID.CODEC_ID_H264, size.width, size.height);
-
-        long start = System.currentTimeMillis();
+       
+        start = System.currentTimeMillis();
 
         int i = 0;
         while (!stop) {
@@ -54,6 +66,5 @@ public class hiloVideo implements Runnable {
             }
         }
         writer.close();
-        System.out.println("Video guardado");
     }
 }

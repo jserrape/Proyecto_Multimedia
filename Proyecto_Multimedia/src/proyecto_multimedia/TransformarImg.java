@@ -19,6 +19,15 @@ import javax.imageio.ImageIO;
  */
 public class TransformarImg implements WebcamImageTransformer {
 
+    public TransformarImg() {
+        this.marco = null;
+    }
+
+    /**
+     *
+     * @param image: frame de imagen a la que se le aplica una transformación
+     * @return imagen ya transformada
+     */
     @Override
     public BufferedImage transform(BufferedImage image) {
         // Esto sería para el filtro --> image = filterBI(image,filter);
@@ -26,11 +35,13 @@ public class TransformarImg implements WebcamImageTransformer {
         return image;
     }
 
-    private BufferedImage marco = null;
+    private BufferedImage marco;
 
+    /**
+     * Método para insertar marcos
+     * @param nombreMarco titulo del marco a insertar en la imagen
+     */
     public void setTemplate(String nombreMarco) {
-//        marco = (nombreMarco==null) ? null : getImage(generateRoute("marcos",nombreMarco));
-//        marco = (nombreMarco==null) ? null : getImage(Paths.get(Paths.get(".").toAbsolutePath().normalize().toString(), "marcos", nombreMarco).toString());
         try {
             marco = (nombreMarco == null) ? null : ImageIO.read(new FileInputStream(Paths.get(Paths.get(".").toAbsolutePath().normalize().toString(), "marcos", nombreMarco).toString()));
         } catch (IOException e) {
