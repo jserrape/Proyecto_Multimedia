@@ -23,6 +23,7 @@ public class VentanaPrincipalJFrame extends javax.swing.JFrame {
     private Ajustes ajustes;
     boolean fps;
     boolean stats;
+    boolean reconfigurar;
 
     //Variable para crear videos
     private hiloVideo hiloDeVideo;
@@ -41,6 +42,7 @@ public class VentanaPrincipalJFrame extends javax.swing.JFrame {
         recording = false;
         ajustes = new Ajustes(this);
         formatoImagen = "bmp";
+        reconfigurar = false;
 
         comprobarWebCam();
         refrescarImagen();
@@ -66,8 +68,10 @@ public class VentanaPrincipalJFrame extends javax.swing.JFrame {
     private void refrescarImagen() {
         if (jPanel1 instanceof WebcamPanel) ((WebcamPanel)jPanel1).stop();
         remove(jPanel1);
-        cs = new Dimension(760,422);
+        cs = new Dimension(640,480);
+        
         cam.setImageTransformer(new TransformarImg()); // Transformaciones.
+        cam.setViewSize(cs);
         cam.open(); // Abre la webcam.
         wcPanel = new WebcamPanel(cam);
         wcPanel.setFPSDisplayed(fps);
