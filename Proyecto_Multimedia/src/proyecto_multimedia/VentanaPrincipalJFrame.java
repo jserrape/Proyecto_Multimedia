@@ -269,7 +269,6 @@ public class VentanaPrincipalJFrame extends javax.swing.JFrame {
             for (int i = 0; i < list.size(); i++) {
                 if (list.get(i).getName() == _cam) {
                     cam = list.get(i);
-                    System.out.println(cam.getName());
                 }
             }
         }
@@ -279,6 +278,7 @@ public class VentanaPrincipalJFrame extends javax.swing.JFrame {
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         // TODO add your handling code here:
+        ajustes.setCamActual(cam);
         ajustes.setVisible(true);
     }//GEN-LAST:event_jButton2ActionPerformed
 

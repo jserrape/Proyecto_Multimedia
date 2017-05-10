@@ -15,6 +15,7 @@ import javax.swing.JComboBox;
  */
 public class Ajustes extends javax.swing.JFrame {
     VentanaPrincipalJFrame ventana;
+    String camActual;
     /**
      * Creates new form Ajustes
      * @param _ventana ventana principal del programa
@@ -23,9 +24,8 @@ public class Ajustes extends javax.swing.JFrame {
         initComponents();
         this.setLocationRelativeTo(null);
         ventana=_ventana;
-        //updateTemplates(listaMarcos,directoryListing("templates",".png"));
         listaMarcos.addItem("Ninguno");
-        actualizarCams(listaCams);
+        actualizarCams(listaCams);  
     }
     
     private void actualizarCams(JComboBox listaCam) {
@@ -34,6 +34,11 @@ public class Ajustes extends javax.swing.JFrame {
         list.stream().filter((w) -> (!w.getLock().isLocked())).forEach((w) -> {
             listaCam.addItem(w.getName());
         });
+
+    }
+    
+    public void setCamActual(Webcam _camAct){
+        camActual = _camAct.getName();
     }
 
     /**
@@ -203,7 +208,10 @@ public class Ajustes extends javax.swing.JFrame {
         ventana.setFormatoImagen(comboBoxFormato.getItemAt(comboBoxFormato.getSelectedIndex()));
         ventana.mostrarFPS(checkBoxFPS.isSelected());
         ventana.mostrarEstadisticas(CheckBoxStatistics.isSelected());
-        ventana.setCam(listaCams.getItemAt(listaCams.getSelectedIndex()));
+        System.out.println("hola");
+        System.out.println(camActual);
+        System.out.println(listaCams.getItemAt(listaCams.getSelectedIndex()));
+        if (camActual == null ? listaCams.getItemAt(listaCams.getSelectedIndex()) != null : !camActual.equals(listaCams.getItemAt(listaCams.getSelectedIndex()))) ventana.setCam(listaCams.getItemAt(listaCams.getSelectedIndex()));
         ventana.insertarMarco(listaMarcos.getItemAt(listaMarcos.getSelectedIndex()));
         this.setVisible(false);
     }//GEN-LAST:event_botonGuardarActionPerformed
