@@ -213,9 +213,6 @@ public class Ajustes extends javax.swing.JFrame {
         ventana.setFormatoImagen(comboBoxFormato.getItemAt(comboBoxFormato.getSelectedIndex()));
         ventana.mostrarFPS(checkBoxFPS.isSelected());
         ventana.mostrarEstadisticas(CheckBoxStatistics.isSelected());
-        System.out.println("hola");
-        System.out.println(camActual);
-        System.out.println(listaCams.getItemAt(listaCams.getSelectedIndex()));
         if (camActual == null ? listaCams.getItemAt(listaCams.getSelectedIndex()) != null : !camActual.equals(listaCams.getItemAt(listaCams.getSelectedIndex()))) ventana.setCam(listaCams.getItemAt(listaCams.getSelectedIndex()));
         ventana.insertarFiltro(listaFiltros.getSelectedIndex());
         ventana.insertarMarco(listaMarcos.getItemAt(listaMarcos.getSelectedIndex()));

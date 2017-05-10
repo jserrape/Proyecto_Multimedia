@@ -14,7 +14,6 @@ import java.nio.file.Paths;
 import javax.imageio.ImageIO;
 import com.jhlabs.image.*;
 import java.awt.Graphics2D;
-import static proyecto_multimedia.CapturaWC.prepareFI;
 
 /**
  *
@@ -98,7 +97,7 @@ public class TransformarImg implements WebcamImageTransformer {
     public static BufferedImage createTemplate(BufferedImage image, BufferedImage template) {
         if (template != null) {
             BufferedImage modified = new BufferedImage(image.getWidth(), image.getHeight(), BufferedImage.TYPE_INT_RGB);
-            template = prepareFI(template, image.getWidth(), image.getHeight());
+            template = scaleTemplate(template, image.getWidth(), image.getHeight());
             Graphics2D g2 = modified.createGraphics();
             g2.drawImage(image, null, 0, 0);
             g2.drawImage(template, null, 0, 0);
@@ -107,6 +106,29 @@ public class TransformarImg implements WebcamImageTransformer {
             return modified;
         } else {
             return image;
+        }
+    }
+    
+    /**
+     * 
+     * Reescala un marco para que se adapte a la cam
+     *
+     * @param template marco a comprobar.
+     * @param x Ancho del marco.
+     * @param y Alto del marco.
+     * @return marco escalado.
+     */
+    public static BufferedImage scaleTemplate(BufferedImage template, int x, int y) {
+        float ancho = ((float) x) / template.getWidth();
+        float alto = ((float) y) / template.getHeight();
+        if (ancho != 1 || alto != 1) {
+            BufferedImage templateEscalado = new BufferedImage(template.getWidth(), template.getHeight(), BufferedImage.TYPE_INT_ARGB);
+            Graphics2D G = templateEscalado.createGraphics();
+            G.scale(ancho, alto);
+            G.drawImage(template, null, 0, 0);
+            return templateEscalado;
+        } else {
+            return template;
         }
     }
 }

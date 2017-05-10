@@ -15,10 +15,8 @@ public class VentanaPrincipalJFrame extends javax.swing.JFrame {
 
     // Variables necesarias para la configuración de la webcam
     private Webcam cam;
-    private Dimension ds;
     private Dimension cs;
     private WebcamPanel wcPanel;
-    private Thread t;
     private boolean recording;
     private Ajustes ajustes;
     boolean fps;
@@ -264,9 +262,9 @@ public class VentanaPrincipalJFrame extends javax.swing.JFrame {
      *
      * @param _cam: Cam a usar
      */
-    public void setCam(String _cam) {
-        List<Webcam> list = Webcam.getWebcams();
+    public void setCam(String _cam) {   
         if (_cam != cam.getName()) {
+            List<Webcam> list = Webcam.getWebcams();
             cam.close();
             for (int i = 0; i < list.size(); i++) {
                 if (list.get(i).getName() == _cam) {
@@ -300,6 +298,7 @@ public class VentanaPrincipalJFrame extends javax.swing.JFrame {
      */
     public void mostrarFPS(boolean action) {
         fps = action;
+        wcPanel.setFPSDisplayed(fps);
     }
 
     /**
@@ -309,6 +308,7 @@ public class VentanaPrincipalJFrame extends javax.swing.JFrame {
      */
     public void mostrarEstadisticas(boolean action) {
         stats = action;
+        wcPanel.setDisplayDebugInfo(stats);
     }
 
     /**
