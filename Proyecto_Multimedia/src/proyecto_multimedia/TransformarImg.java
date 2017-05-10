@@ -5,13 +5,16 @@
  */
 package proyecto_multimedia;
 
-import static proyecto_multimedia.CapturaWC.templateBI;
 import com.github.sarxos.webcam.WebcamImageTransformer;
 import java.awt.image.BufferedImage;
+import java.awt.image.BufferedImageOp;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.nio.file.Paths;
 import javax.imageio.ImageIO;
+import com.jhlabs.image.*;
+import java.awt.Graphics2D;
+import static proyecto_multimedia.CapturaWC.prepareFI;
 
 /**
  *
@@ -21,6 +24,7 @@ public class TransformarImg implements WebcamImageTransformer {
 
     public TransformarImg() {
         this.marco = null;
+        this.filtro = 0;
     }
 
     /**
@@ -30,15 +34,17 @@ public class TransformarImg implements WebcamImageTransformer {
      */
     @Override
     public BufferedImage transform(BufferedImage image) {
-        // Esto sería para el filtro --> image = filterBI(image,filter);
-        image = templateBI(image, marco);
+        image = createFilter(image, filtro);
+        image = createTemplate(image, marco);
         return image;
     }
 
     private BufferedImage marco;
+    private int filtro;
 
     /**
      * Método para insertar marcos
+     *
      * @param nombreMarco titulo del marco a insertar en la imagen
      */
     public void setTemplate(String nombreMarco) {
@@ -46,6 +52,61 @@ public class TransformarImg implements WebcamImageTransformer {
             marco = (nombreMarco == null) ? null : ImageIO.read(new FileInputStream(Paths.get(Paths.get(".").toAbsolutePath().normalize().toString(), "marcos", nombreMarco).toString()));
         } catch (IOException e) {
             throw new RuntimeException(e);
+        }
+    }
+
+    public void setFilter(int _filtro){
+       filtro = _filtro;
+    }
+    
+    
+    private static final BufferedImageOp[] listaFiltros = new BufferedImageOp[]{
+        new DitherFilter(),
+        new ExposureFilter(),
+        new GammaFilter(),
+        new GaussianFilter(10),
+        new GlowFilter(),
+        new GrayscaleFilter(),
+        new InvertFilter(),
+        new KaleidoscopeFilter(),
+        new LightFilter(),
+        new NoiseFilter(),
+        new SharpenFilter(),
+        new SolarizeFilter(),
+        new SphereFilter(),
+        new ThresholdFilter(),
+        new WaterFilter(),
+        new PinchFilter(),
+        new EdgeFilter(),
+        new WeaveFilter(),
+        new EmbossFilter(),
+        new PolarFilter(),
+        new LookupFilter()
+    };
+
+    public static BufferedImage createFilter(BufferedImage image, int filtro) {
+        if (filtro != 0) {
+            BufferedImage modified = new BufferedImage(image.getWidth(), image.getHeight(), BufferedImage.TYPE_INT_RGB);
+            listaFiltros[filtro - 1].filter(image, modified);
+            modified.flush();
+            return modified;
+        } else {
+            return image;
+        }
+    }
+
+    public static BufferedImage createTemplate(BufferedImage image, BufferedImage template) {
+        if (template != null) {
+            BufferedImage modified = new BufferedImage(image.getWidth(), image.getHeight(), BufferedImage.TYPE_INT_RGB);
+            template = prepareFI(template, image.getWidth(), image.getHeight());
+            Graphics2D g2 = modified.createGraphics();
+            g2.drawImage(image, null, 0, 0);
+            g2.drawImage(template, null, 0, 0);
+            g2.dispose();
+            modified.flush();
+            return modified;
+        } else {
+            return image;
         }
     }
 }

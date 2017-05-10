@@ -41,29 +41,7 @@ public class CapturaWC {
     /**
      * Instancias de filtros disponibles.
      */
-    private static final BufferedImageOp[] filters = new BufferedImageOp[] {
-//        new DitherFilter(),
-//        new ExposureFilter(),
-//        new GammaFilter(),
-//        new GaussianFilter(10),
-//        new GlowFilter(),
-//        new GrayscaleFilter(),
-//        new InvertFilter(),
-//        new KaleidoscopeFilter(),
-//        new LightFilter(),
-//        new NoiseFilter(),
-//        new SharpenFilter(),
-//        new SolarizeFilter(),
-//        new SphereFilter(),
-//        new ThresholdFilter(),
-//        new WaterFilter(),
-//        new PinchFilter(),
-//        new EdgeFilter(),
-//        new WeaveFilter(),
-//        new EmbossFilter(),
-//        new PolarFilter(),
-//        new LookupFilter()
-    };
+    
 
     /**
      * <b>Genera la lista de webcams disponibles en el sistema y lo almacena en una lista desplegable de Java.</b>
@@ -127,16 +105,16 @@ public class CapturaWC {
      * @param filter Índice+1 del filtro a emplear del vector de filtros disponibles {@link #filters}
      * @return Imagen de salida filtrada.
      */
-    public static BufferedImage filterBI(BufferedImage image, int filter) {
-        if (filter>0) {
-            BufferedImage modified = new BufferedImage(image.getWidth(), image.getHeight(), BufferedImage.TYPE_INT_RGB);
-            filters[filter-1].filter(image, modified);
-            modified.flush();
-            return modified;
-        } else {
-            return image;
-        }
-    }
+//    public static BufferedImage filterBI(BufferedImage image, int filter) {
+//        if (filter>0) {
+//            BufferedImage modified = new BufferedImage(image.getWidth(), image.getHeight(), BufferedImage.TYPE_INT_RGB);
+//            filters[filter-1].filter(image, modified);
+//            modified.flush();
+//            return modified;
+//        } else {
+//            return image;
+//        }
+//    }
     
     /**
      * <b>Dada una imagen y una plantilla, la superpone en la imagen.</b>

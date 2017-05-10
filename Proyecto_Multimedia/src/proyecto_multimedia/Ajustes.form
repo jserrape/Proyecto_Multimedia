@@ -52,7 +52,7 @@
                                       <EmptySpace min="-2" pref="9" max="-2" attributes="0"/>
                                       <Component id="jLabel3" min="-2" max="-2" attributes="0"/>
                                       <EmptySpace max="-2" attributes="0"/>
-                                      <Component id="jComboBox2" min="-2" pref="125" max="-2" attributes="0"/>
+                                      <Component id="listaFiltros" min="-2" pref="125" max="-2" attributes="0"/>
                                       <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                                   </Group>
                               </Group>
@@ -100,7 +100,7 @@
                   <Component id="jLabel2" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="listaMarcos" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="jLabel3" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="jComboBox2" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="listaFiltros" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace pref="39" max="32767" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
@@ -198,17 +198,38 @@
     </Component>
     <Component class="javax.swing.JSeparator" name="jSeparator1">
     </Component>
-    <Component class="javax.swing.JComboBox" name="jComboBox2">
+    <Component class="javax.swing.JComboBox" name="listaFiltros">
       <Properties>
         <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-          <StringArray count="4">
-            <StringItem index="0" value="Item 1"/>
-            <StringItem index="1" value="Item 2"/>
-            <StringItem index="2" value="Item 3"/>
-            <StringItem index="3" value="Item 4"/>
+          <StringArray count="22">
+            <StringItem index="0" value="Ninguno"/>
+            <StringItem index="1" value="Temblor"/>
+            <StringItem index="2" value="Exposici&#xf3;n"/>
+            <StringItem index="3" value="Gama"/>
+            <StringItem index="4" value="Gaussian"/>
+            <StringItem index="5" value="Brillante"/>
+            <StringItem index="6" value="Escala de gris"/>
+            <StringItem index="7" value="Invertir"/>
+            <StringItem index="8" value="Caleidoscopio"/>
+            <StringItem index="9" value="Luz"/>
+            <StringItem index="10" value="Ruido"/>
+            <StringItem index="11" value="Afilado"/>
+            <StringItem index="12" value="Solar"/>
+            <StringItem index="13" value="Esf&#xe9;rico"/>
+            <StringItem index="14" value="Umbral"/>
+            <StringItem index="15" value="Agua"/>
+            <StringItem index="16" value="Pinzado"/>
+            <StringItem index="17" value="Contorno"/>
+            <StringItem index="18" value="Onda"/>
+            <StringItem index="19" value="Realce"/>
+            <StringItem index="20" value="Polar"/>
+            <StringItem index="21" value="Busqueda"/>
           </StringArray>
         </Property>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="listaFiltrosActionPerformed"/>
+      </Events>
       <AuxValues>
         <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
       </AuxValues>
