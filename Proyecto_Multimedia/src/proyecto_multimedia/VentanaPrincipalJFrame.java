@@ -23,6 +23,7 @@ public class VentanaPrincipalJFrame extends javax.swing.JFrame {
     private boolean recording;
     private final Ajustes ajustes;
     private DeteccionMovimientoJFrame DMovimiento;
+    private DetectMotion deteccionMovimiento;
     boolean movimientoDetectado;
     boolean fps;
     boolean stats;
@@ -55,12 +56,12 @@ public class VentanaPrincipalJFrame extends javax.swing.JFrame {
     }
     
     public void iniciarDeteccion(){
-        new DetectMotion();
+        deteccionMovimiento = new DetectMotion();
     }
     
     public void reiniciarDeteccion(){
         movimientoDetectado=false;
-        pararDeteccion();
+        deteccionMovimiento.pararDeteccion();
     }
     
     //Comprueba si hay al menos una webcam disponible. Lanza ventana de error y finaliza ejecución en otro caso
@@ -352,24 +353,28 @@ public class VentanaPrincipalJFrame extends javax.swing.JFrame {
     }
     
     public class DetectMotion implements WebcamMotionListener {
+        
+        WebcamMotionDetector detector = new WebcamMotionDetector(Webcam.getDefault());
+        boolean detectando;
 
-	public DetectMotion() {
-		WebcamMotionDetector detector = new WebcamMotionDetector(Webcam.getDefault());
+	public DetectMotion() {		
 		detector.setInterval(500); // one check per 500 ms
 		detector.addMotionListener(this);
 		detector.start();
+                detectando=true;
 	}
 
 	@Override
 	public void motionDetected(WebcamMotionEvent wme) {
-            if(movimientoDetectado=true){
+            if(movimientoDetectado=true && detectando){
 		DMovimiento.detectarMov();
                 movimientoDetectado=false;
+                detectando=false;
             }
 	}
         
         public void pararDeteccion(){
-           // detector.stop();
+            detector.stop();
         }
 }
 
