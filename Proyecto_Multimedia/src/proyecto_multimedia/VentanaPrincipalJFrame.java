@@ -6,6 +6,9 @@
 package proyecto_multimedia;
 
 import com.github.sarxos.webcam.Webcam;
+import com.github.sarxos.webcam.WebcamMotionDetector;
+import com.github.sarxos.webcam.WebcamMotionEvent;
+import com.github.sarxos.webcam.WebcamMotionListener;
 import com.github.sarxos.webcam.WebcamPanel;
 import com.github.sarxos.webcam.WebcamUtils;
 import java.awt.Dimension;
@@ -18,7 +21,9 @@ public class VentanaPrincipalJFrame extends javax.swing.JFrame {
     private Dimension cs;
     private WebcamPanel wcPanel;
     private boolean recording;
-    private Ajustes ajustes;
+    private final Ajustes ajustes;
+    private DeteccionMovimientoJFrame DMovimiento;
+    boolean movimientoDetectado;
     boolean fps;
     boolean stats;
     boolean reconfigurar;
@@ -39,13 +44,25 @@ public class VentanaPrincipalJFrame extends javax.swing.JFrame {
         hiloDeVideo = null;
         recording = false;
         ajustes = new Ajustes(this);
+        DMovimiento = new DeteccionMovimientoJFrame();
         formatoImagen = "bmp";
         reconfigurar = false;
-
+        movimientoDetectado=false;
+        
+        
         comprobarWebCam();
         refrescarImagen();
     }
-
+    
+    public void iniciarDeteccion(){
+        new DetectMotion();
+    }
+    
+    public void reiniciarDeteccion(){
+        movimientoDetectado=false;
+        pararDeteccion();
+    }
+    
     //Comprueba si hay al menos una webcam disponible. Lanza ventana de error y finaliza ejecución en otro caso
     private void comprobarWebCam() {
         try {
@@ -333,6 +350,28 @@ public class VentanaPrincipalJFrame extends javax.swing.JFrame {
             ((TransformarImg) cam.getImageTransformer()).setFilter(0);
         }
     }
+    
+    public class DetectMotion implements WebcamMotionListener {
+
+	public DetectMotion() {
+		WebcamMotionDetector detector = new WebcamMotionDetector(Webcam.getDefault());
+		detector.setInterval(500); // one check per 500 ms
+		detector.addMotionListener(this);
+		detector.start();
+	}
+
+	@Override
+	public void motionDetected(WebcamMotionEvent wme) {
+            if(movimientoDetectado=true){
+		DMovimiento.detectarMov();
+                movimientoDetectado=false;
+            }
+	}
+        
+        public void pararDeteccion(){
+           // detector.stop();
+        }
+}
 
     /**
      * @param args the command line arguments
