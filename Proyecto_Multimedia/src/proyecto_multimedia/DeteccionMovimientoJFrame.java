@@ -13,11 +13,12 @@ import java.util.Calendar;
  */
 public class DeteccionMovimientoJFrame extends javax.swing.JFrame {
     boolean nuevaDeteccion = false;
+    VentanaPrincipalJFrame ventana;
 
     /**
      * Creates new form DeteccionMovimientoJFrame
      */
-    public DeteccionMovimientoJFrame() {
+    public DeteccionMovimientoJFrame(VentanaPrincipalJFrame _ventana) {
         Calendar Calendario = Calendar.getInstance();
         
         String hora = Integer.toString(Calendario.get(Calendar.HOUR));
@@ -27,6 +28,7 @@ public class DeteccionMovimientoJFrame extends javax.swing.JFrame {
         jLabel1.setText("MOVIMIENTO DETECTADO: ");
         jLabel2.setText(hora +":"+minuto+":"+segundo);
         nuevaDeteccion=false;
+        ventana = _ventana;
     }
     
     public void detectarMov(){
@@ -102,6 +104,7 @@ public class DeteccionMovimientoJFrame extends javax.swing.JFrame {
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
         this.setVisible(false);
+        ventana.reiniciarDeteccion();
     }//GEN-LAST:event_jButton1ActionPerformed
 
     

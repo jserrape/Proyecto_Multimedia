@@ -45,25 +45,24 @@ public class VentanaPrincipalJFrame extends javax.swing.JFrame {
         hiloDeVideo = null;
         recording = false;
         ajustes = new Ajustes(this);
-        DMovimiento = new DeteccionMovimientoJFrame();
+        DMovimiento = new DeteccionMovimientoJFrame(this);
         formatoImagen = "bmp";
         reconfigurar = false;
-        movimientoDetectado=false;
-        
-        
+        movimientoDetectado = false;
+
         comprobarWebCam();
         refrescarImagen();
     }
-    
-    public void iniciarDeteccion(){
+
+    public void iniciarDeteccion() {
         deteccionMovimiento = new DetectMotion();
     }
-    
-    public void reiniciarDeteccion(){
-        movimientoDetectado=false;
+
+    public void reiniciarDeteccion() {
+        movimientoDetectado = false;
         deteccionMovimiento.pararDeteccion();
     }
-    
+
     //Comprueba si hay al menos una webcam disponible. Lanza ventana de error y finaliza ejecución en otro caso
     private void comprobarWebCam() {
         try {
@@ -280,7 +279,7 @@ public class VentanaPrincipalJFrame extends javax.swing.JFrame {
      *
      * @param _cam: Cam a usar
      */
-    public void setCam(String _cam) {   
+    public void setCam(String _cam) {
         if (_cam != cam.getName()) {
             List<Webcam> list = Webcam.getWebcams();
             cam.close();
@@ -351,32 +350,39 @@ public class VentanaPrincipalJFrame extends javax.swing.JFrame {
             ((TransformarImg) cam.getImageTransformer()).setFilter(0);
         }
     }
-    
+
     public class DetectMotion implements WebcamMotionListener {
-        
-        WebcamMotionDetector detector = new WebcamMotionDetector(Webcam.getDefault());
+
+        WebcamMotionDetector detector = new WebcamMotionDetector(cam);
         boolean detectando;
 
-	public DetectMotion() {		
-		detector.setInterval(500); // one check per 500 ms
-		detector.addMotionListener(this);
-		detector.start();
-                detectando=true;
-	}
-
-	@Override
-	public void motionDetected(WebcamMotionEvent wme) {
-            if(movimientoDetectado=true && detectando){
-		DMovimiento.detectarMov();
-                movimientoDetectado=false;
-                detectando=false;
-            }
-	}
-        
-        public void pararDeteccion(){
-            detector.stop();
+        public DetectMotion() {
+            detector.setInterval(500); // one check per 500 ms
+            detector.addMotionListener(this);
+            detector.start();
+            detectando = true;
         }
-}
+
+        @Override
+        public void motionDetected(WebcamMotionEvent wme) {
+            if (movimientoDetectado = true && detectando) {
+                DMovimiento.detectarMov();
+                movimientoDetectado = false;
+                detectando = false;
+                recording = true;
+                hiloDeVideo = new hiloVideo(cam);
+                Thread th = new Thread(hiloDeVideo);
+                th.start();
+                jButton4.setText("Parar");
+            }
+        }
+
+        public void pararDeteccion() {
+            jButton4.setText("Video");
+            hiloDeVideo.parar();
+            recording = false;
+        }
+    }
 
     /**
      * @param args the command line arguments
