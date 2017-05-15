@@ -18,20 +18,20 @@ public class DeteccionMovimientoJFrame extends javax.swing.JFrame {
     /**
      * Creates new form DeteccionMovimientoJFrame
      */
-    public DeteccionMovimientoJFrame(VentanaPrincipalJFrame _ventana) {
-        Calendar Calendario = Calendar.getInstance();
-        
-        String hora = Integer.toString(Calendario.get(Calendar.HOUR));
-        String minuto = Integer.toString(Calendario.get(Calendar.MINUTE));
-        String segundo = Integer.toString(Calendario.get(Calendar.SECOND));
+    public DeteccionMovimientoJFrame(VentanaPrincipalJFrame _ventana) {       
         initComponents();
-        jLabel1.setText("MOVIMIENTO DETECTADO: ");
-        jLabel2.setText(hora +":"+minuto+":"+segundo);
+        jLabel1.setText("MOVIMIENTO DETECTADO: ");     
         nuevaDeteccion=false;
         ventana = _ventana;
     }
     
     public void detectarMov(){
+        Calendar Calendario = Calendar.getInstance();
+        
+        String hora = Integer.toString(Calendario.get(Calendar.HOUR));
+        String minuto = Integer.toString(Calendario.get(Calendar.MINUTE));
+        String segundo = Integer.toString(Calendario.get(Calendar.SECOND));
+        jLabel2.setText(hora +":"+minuto+":"+segundo);
         nuevaDeteccion=true;
         this.setVisible(true);
     }
