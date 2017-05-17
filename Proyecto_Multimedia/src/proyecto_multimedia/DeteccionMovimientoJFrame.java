@@ -5,7 +5,11 @@
  */
 package proyecto_multimedia;
 
+import java.awt.Image;
+import java.io.File;
+import java.io.IOException;
 import java.util.Calendar;
+import javax.imageio.ImageIO;
 
 /**
  *
@@ -18,11 +22,14 @@ public class DeteccionMovimientoJFrame extends javax.swing.JFrame {
     /**
      * Creates new form DeteccionMovimientoJFrame
      */
-    public DeteccionMovimientoJFrame(VentanaPrincipalJFrame _ventana) {       
+    public DeteccionMovimientoJFrame(VentanaPrincipalJFrame _ventana) throws IOException {       
         initComponents();
         jLabel1.setText("MOVIMIENTO DETECTADO: ");     
         nuevaDeteccion=false;
         ventana = _ventana;
+        this.setTitle("Detector");
+        Image icon = ImageIO.read(new File("icon.png"));
+        this.setIconImage(icon);
     }
     
     public void detectarMov(){

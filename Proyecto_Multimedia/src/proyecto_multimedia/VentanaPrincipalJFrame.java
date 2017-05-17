@@ -12,7 +12,11 @@ import com.github.sarxos.webcam.WebcamMotionListener;
 import com.github.sarxos.webcam.WebcamPanel;
 import com.github.sarxos.webcam.WebcamUtils;
 import java.awt.Dimension;
+import java.awt.Image;
+import java.io.File;
+import java.io.IOException;
 import java.util.List;
+import javax.imageio.ImageIO;
 
 public class VentanaPrincipalJFrame extends javax.swing.JFrame {
 
@@ -35,8 +39,9 @@ public class VentanaPrincipalJFrame extends javax.swing.JFrame {
     //Variable para cambiar el formato en el que se guardará la captura (foto)
     private String formatoImagen;
 
-    public VentanaPrincipalJFrame() {
+    public VentanaPrincipalJFrame() throws IOException {
         initComponents();
+        this.setTitle("D.vcam");
         this.setLocationRelativeTo(null);
         //Inicialización de variables
         fps = false;
@@ -49,7 +54,8 @@ public class VentanaPrincipalJFrame extends javax.swing.JFrame {
         formatoImagen = "bmp";
         reconfigurar = false;
         movimientoDetectado = false;
-
+        Image icon = ImageIO.read(new File("icon.png"));
+        this.setIconImage(icon);
         comprobarWebCam();
         refrescarImagen();
     }
